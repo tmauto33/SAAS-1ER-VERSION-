@@ -61,11 +61,108 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
 .recap-objection { background: #fffbeb; padding: 20px; border-radius: 15px; border-left: 6px solid var(--orange); margin-top: 25px; }
 
 /* Responsive */
-@media (max-width: 1024px) {
-    .app-container { flex-direction: column; }
-    .sidebar { width: 100%; height: auto; padding: 15px; }
-    .sidebar nav { flex-direction: row; overflow-x: auto; }
-    .ia-status-bar { left: 15px; right: 15px; bottom: 15px; padding: 0 20px; }
+/* --- OPTIMISATION MOBILE --- */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column; /* Empile la nav et le contenu */
+        height: 100vh;
+    }
+
+    /* Navigation style "App Mobile" en bas */
+    .sidebar {
+        width: 100%;
+        height: 70px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 2000;
+        padding: 0;
+        background: var(--primary);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo { display: none; } /* On cache le logo sur mobile pour gagner de la place */
+
+    .sidebar nav {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .nav-item {
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px;
+        font-size: 0.65rem;
+        text-align: center;
+        width: auto;
+        margin: 0;
+        border-radius: 8px;
+        color: #94a3b8;
+    }
+
+    .nav-item i { width: 20px; height: 20px; } /* Icônes plus petites */
+
+    .nav-item.active {
+        background: transparent;
+        color: var(--accent);
+    }
+
+    /* Ajustement du contenu principal */
+    .main-content {
+        padding: 15px;
+        padding-bottom: 180px; /* Espace pour la barre nav ET la barre IA */
+    }
+
+    .hero-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .hero-card h1 { font-size: 1.5rem; }
+
+    /* Grilles en une seule colonne */
+    .dashboard-grid, .checklist-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Barre IA flottante au-dessus de la nav */
+    .ia-status-bar {
+        left: 10px;
+        right: 10px;
+        bottom: 80px; /* Juste au dessus de la barre de navigation */
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+        border-radius: 20px;
+        gap: 10px;
+    }
+
+    .ia-central-brain { order: -1; width: 100%; justify-content: flex-start; margin-bottom: 5px; }
+    .profit-value, .advice-value { font-size: 1.2rem; }
+
+    /* Checklist adaptée au pouce */
+    .check-item {
+        padding: 18px;
+        margin-bottom: 5px;
+    }
+
+    .pill-btn {
+        padding: 12px 20px; /* Plus gros pour cliquer facilement au doigt */
+    }
+
+    /* Modal plein écran sur mobile */
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 20px;
+    }
 }
 .checklist-grid {
     display: grid;
