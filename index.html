@@ -14,7 +14,7 @@
             <div class="logo"><i data-lucide="car"></i> OPTIMIZEX</div>
             <nav>
                 <button class="nav-item active" onclick="switchTab('analyse', this)"><i data-lucide="layout-dashboard"></i> ANALYSE</button>
-                <button class="nav-item" onclick="switchTab('checkliste', this)"><i data-lucide="check-square"></i> CHECKLISTE</button>
+                <button class="nav-item" onclick="switchTab('expertise', this)"><i data-lucide="check-square"></i> INSPECTION</button>
                 <button class="nav-item" onclick="switchTab('nego', this)"><i data-lucide="trending-down"></i> NÉGOCIATION</button>
                 <button class="nav-item" onclick="switchTab('annonce', this)"><i data-lucide="megaphone"></i> ANNONCE</button>
                 <button class="nav-item btn-db" onclick="switchTab('dashboard', this)" style="margin-top:20px;"><i data-lucide="database"></i> HISTORIQUE</button>
@@ -34,13 +34,13 @@
                         <input type="text" id="model-name" placeholder="Modèle">
                         <input type="text" id="motor" placeholder="Motorisation">
                         <input type="number" id="km" placeholder="Kilométrage" oninput="runCalculations()">
-                        <textarea id="v-notes" placeholder="Notes Véhicule" style="height: 80px;"></textarea>
+                        <textarea id="v-notes" placeholder="Notes psychologie vendeur..." style="height: 80px;"></textarea>
                     </div>
                     <div class="card">
                         <h3><i data-lucide="calculator"></i> Finance & Taxes</h3>
                         <label>Valeur Marché (€)</label>
                         <input type="number" id="market-val" oninput="runCalculations()">
-                        <label>Prix D'achat Cible (€)</label>
+                        <label>Prix D'achat (€)</label>
                         <input type="number" id="target-price" oninput="runCalculations()">
                         <label>Frais Administratifs (CG, etc)</label>
                         <input type="number" id="fees-admin" value="0" oninput="runCalculations()">
@@ -66,7 +66,7 @@
                 </div>
             </section>
 
-           <section id="checkliste" class="view" style="display:none;">
+            <section id="expertise" class="view" style="display:none;">
                 <div class="hero-card"><h1>Inspection <span>27 Points</span></h1></div>
                 <div id="checklist-render" class="checklist-grid"></div>
                 <div class="card" style="margin-top:20px;">
@@ -137,6 +137,4 @@
     </div>
     <script src="script.js"></script>
 </body>
-
 </html>
-
