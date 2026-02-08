@@ -1,27 +1,32 @@
-/* --- VARIABLES ET THEME --- */
+/* --- 1. VARIABLES ET THÈME --- */
 :root {
-    --primary: #0f172a;        /* Bleu nuit */
-    --accent: #6366f1;         /* Indigo */
-    --orange: #fb923c;         /* Orange IA */
-    --success-green: #22c55e;  /* Vert profit */
-    --bg: #f8fafc;             /* Fond clair */
-    --border: #e2e8f0;         /* Bordures */
+    --primary: #0f172a;        /* Bleu nuit (Sidebar) */
+    --accent: #6366f1;         /* Indigo (Boutons actifs) */
+    --orange: #fb923c;         /* Orange (IA / Alertes) */
+    --success-green: #22c55e;  /* Vert (Profit) */
+    --bg: #f8fafc;             /* Gris très clair (Fond) */
+    --border: #e2e8f0;         /* Gris (Bordures) */
     --card-white: #ffffff;
 }
 
-/* --- BASE --- */
+/* --- 2. BASE DE LA PAGE --- */
 * { box-sizing: border-box; }
+
 body { 
     margin: 0; 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     background: var(--bg); 
     color: var(--primary); 
-    overflow: hidden; /* Empêche le scroll du body pour laisser les sections gérer leur scroll */
+    overflow: hidden; /* Important : empêche le scroll de tout l'écran */
 }
 
-.app-container { display: flex; height: 100vh; width: 100vw; }
+.app-container { 
+    display: flex; 
+    height: 100vh; 
+    width: 100vw; 
+}
 
-/* --- SIDEBAR (MENU PC) --- */
+/* --- 3. MENU LATÉRAL (PC) --- */
 .sidebar { 
     width: 280px; 
     background: var(--primary); 
@@ -30,6 +35,7 @@ body {
     display: flex; 
     flex-direction: column; 
     flex-shrink: 0; 
+    transition: 0.3s;
 }
 
 .logo { 
@@ -56,6 +62,7 @@ body {
     align-items: center; 
     gap: 12px; 
     transition: 0.3s; 
+    text-align: left;
 }
 
 .nav-item.active { 
@@ -64,11 +71,11 @@ body {
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); 
 }
 
-/* --- CONTENU PRINCIPAL --- */
+/* --- 4. ZONE DE CONTENU PRINCIPAL --- */
 .main-content { 
     flex: 1; 
     padding: 40px; 
-    overflow-y: auto; 
+    overflow-y: auto; /* Seul le contenu défile */
     padding-bottom: 140px; /* Espace pour la barre IA en bas */
 }
 
@@ -76,7 +83,7 @@ body {
 .hero-card h1 { font-size: 2rem; font-weight: 800; margin: 0; }
 .hero-card span { color: var(--accent); }
 
-/* --- CARTES ET GRILLES --- */
+/* --- 5. CARTES ET GRILLES --- */
 .dashboard-grid, .checklist-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
@@ -94,7 +101,7 @@ body {
 .card h3 { margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
 .dark-card { background: var(--primary); color: white; border: none; }
 
-/* --- FORMULAIRES --- */
+/* --- 6. INPUTS ET FORMULAIRES --- */
 input, select, textarea { 
     width: 100%; 
     padding: 14px; 
@@ -106,9 +113,17 @@ input, select, textarea {
     background: #f8fafc; 
 }
 input:focus { border-color: var(--accent); outline: none; background: white; }
-.plate-style { font-size: 2rem !important; font-weight: 900; text-align: center; border: 3px solid var(--primary) !important; color: var(--primary); text-transform: uppercase; }
 
-/* --- CHECKLIST --- */
+.plate-style { 
+    font-size: 2rem !important; 
+    font-weight: 900; 
+    text-align: center; 
+    border: 3px solid var(--primary) !important; 
+    color: var(--primary); 
+    text-transform: uppercase; 
+}
+
+/* --- 7. CHECKLIST (EXPERTISE) --- */
 .check-item { 
     background: white; 
     padding: 15px; 
@@ -123,11 +138,11 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
 .pill-btn.btn-ok.active { background: var(--success-green) !important; color: white; border-color: #16a34a; }
 .pill-btn.btn-ko.active { background: #ef4444 !important; color: white; border-color: #dc2626; }
 
-/* --- BARRE IA (FLOATING) --- */
+/* --- 8. BARRE IA FLOTTANTE --- */
 .ia-status-bar { 
     position: fixed; 
     bottom: 25px; 
-    left: 305px; /* Décalage pour PC (sidebar) */
+    left: 305px; /* Décalage pour laisser la sidebar PC visible */
     right: 25px; 
     height: 90px; 
     background: rgba(15, 23, 42, 0.95); 
@@ -151,11 +166,11 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
 .confidence-bar-bg { width: 120px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 5px; }
 .confidence-bar-fill { height: 100%; background: var(--accent); width: 0%; border-radius: 10px; transition: 0.5s; }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- 9. ADAPTATION MOBILE (SMARTPHONE) --- */
 @media (max-width: 768px) {
     .app-container { flex-direction: column; }
 
-    /* Nav en bas sur mobile */
+    /* Barre de menu en bas */
     .sidebar { 
         width: 100%; 
         height: 75px; 
@@ -166,9 +181,17 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
         padding: 0; 
         border-top: 1px solid rgba(255,255,255,0.1);
         z-index: 2000;
+        background: var(--primary);
     }
-    .logo { display: none; }
-    .sidebar nav { display: flex; width: 100%; justify-content: space-around; align-items: center; }
+    .logo { display: none; } /* On enlève le logo sur mobile */
+
+    .sidebar nav { 
+        display: flex; 
+        width: 100%; 
+        justify-content: space-around; 
+        align-items: center; 
+    }
+
     .nav-item { 
         flex-direction: column; 
         width: auto; 
@@ -178,14 +201,16 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
         gap: 5px;
         background: transparent !important;
         box-shadow: none !important;
+        color: #94a3b8;
     }
+
     .nav-item.active { color: var(--accent); }
 
-    /* IA Status Bar mobile */
+    /* Barre IA mobile (remonte au-dessus du menu) */
     .ia-status-bar { 
         left: 10px; 
         right: 10px; 
-        bottom: 85px; 
+        bottom: 85px; /* Juste au-dessus du menu mobile */
         height: auto; 
         padding: 15px; 
         flex-wrap: wrap;
@@ -194,9 +219,14 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
     .ia-central-brain { width: 100%; margin-bottom: 10px; }
     .profit-value, .advice-value { font-size: 1.2rem; }
 
-    /* Contenu */
-    .main-content { padding: 15px; padding-bottom: 200px; }
+    /* Contenu Mobile */
+    .main-content { 
+        padding: 15px; 
+        padding-bottom: 200px; /* Plus d'espace pour scroller librement */
+    }
     .hero-card h1 { font-size: 1.4rem; }
+    .hero-card { flex-direction: column; align-items: flex-start; }
+
     .dashboard-grid, .checklist-grid { grid-template-columns: 1fr; }
     
     .check-item { flex-direction: column; align-items: flex-start; gap: 12px; }
