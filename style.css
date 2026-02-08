@@ -1,4 +1,4 @@
-/* --- 1. VARIABLES & RESET --- */
+/* 1. CONFIGURATION DE BASE (MOBILE PAR DÉFAUT) */
 :root {
     --primary: #0f172a;
     --accent: #6366f1;
@@ -13,210 +13,126 @@ body {
     margin: 0; 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     background: var(--bg); 
-    color: var(--primary); 
-    font-size: 16px;
-    overflow-x: hidden;
+    color: var(--primary);
 }
 
-.app-container { display: flex; height: 100vh; overflow: hidden; }
-
-/* --- 2. SIDEBAR (MENU PC) --- */
-.sidebar { 
-    width: 280px; 
-    background: var(--primary); 
-    color: white; 
-    padding: 30px 20px; 
-    display: flex; 
-    flex-direction: column; 
-    flex-shrink: 0; 
+/* 2. MENU MOBILE (BARRE DU BAS) */
+.sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: var(--primary);
+    z-index: 2000;
+    display: flex;
+    padding: 0;
 }
 
-.logo { 
-    font-size: 1.6rem; 
-    font-weight: 900; 
-    margin-bottom: 40px; 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
+.logo { display: none; } /* Caché sur mobile */
+
+.sidebar nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.nav-item { 
-    width: 100%; 
-    padding: 16px; 
-    margin-bottom: 8px; 
-    border: none; 
-    border-radius: 14px; 
-    background: transparent; 
-    color: #94a3b8; 
-    font-weight: 700; 
-    cursor: pointer; 
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
-    transition: 0.3s; 
+.nav-item {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+    font-weight: bold;
+    gap: 4px;
 }
 
-.nav-item.active { background: white; color: var(--primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+.nav-item.active { color: var(--accent); }
 
-/* --- 3. CONTENU PRINCIPAL --- */
-.main-content { flex: 1; padding: 40px; overflow-y: auto; padding-bottom: 150px; }
+/* 3. CONTENU (AJUSTÉ POUR MOBILE) */
+.app-container { display: flex; flex-direction: column; }
 
-.dashboard-grid, .checklist-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 20px; 
+.main-content {
+    padding: 15px;
+    padding-bottom: 180px; /* Espace pour pas que le menu cache le texte */
 }
 
-.card { 
-    background: white; 
-    padding: 30px; 
-    border-radius: 24px; 
-    border: 1px solid var(--border); 
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
+.dashboard-grid, .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 colonne sur mobile */
+    gap: 15px;
 }
 
-.hero-card { margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-.hero-card h1 { font-size: 2rem; font-weight: 800; margin: 0; }
-.hero-card span { color: var(--accent); }
-
-/* --- 4. FORMULAIRES --- */
-input, select, textarea { 
-    width: 100%; padding: 15px; margin-top: 5px; margin-bottom: 20px; 
-    border: 2px solid #f1f5f9; border-radius: 12px; font-size: 1rem; 
-    background: #f8fafc; transition: 0.2s; 
-}
-input:focus { border-color: var(--accent); outline: none; background: white; }
-.plate-style { font-size: 2rem !important; font-weight: 900; text-align: center; border: 3px solid var(--primary) !important; color: var(--primary); text-transform: uppercase; }
-
-/* --- 5. IA STATUS BAR --- */
-.ia-status-bar { 
-    position: fixed; bottom: 25px; left: 305px; right: 25px; 
-    height: 95px; background: rgba(15, 23, 42, 0.95); 
-    backdrop-filter: blur(10px); border-radius: 30px; 
-    display: flex; align-items: center; padding: 0 40px; 
-    color: white; justify-content: space-between; z-index: 1000; 
-}
-.profit-value, .advice-value { font-size: 1.8rem; font-weight: 900; }
-.profit-value { color: var(--success-green); }
-.advice-value { color: var(--orange); }
-
-/* --- 6. DESIGN MOBILE (SMARTPHONE) --- */
-@media (max-width: 768px) {
-    .app-container { flex-direction: column; }
-
-    /* Barre de navigation en bas */
-    .sidebar { 
-        width: 100%; height: 70px; 
-        position: fixed; bottom: 0; left: 0; 
-        flex-direction: row; padding: 0; 
-        z-index: 2000; border-radius: 0;
-    }
-    .logo { display: none; }
-    .sidebar nav { display: flex; width: 100%; justify-content: space-around; align-items: center; }
-    
-    .nav-item { 
-        flex-direction: column; gap: 4px; padding: 8px; 
-        font-size: 0.6rem; width: auto; margin: 0; 
-        justify-content: center;
-    }
-    .nav-item.active { background: transparent; color: var(--accent); box-shadow: none; border-top: 3px solid var(--accent); border-radius: 0; }
-    .nav-item i { width: 20px; height: 20px; }
-
-    /* Contenu */
-    .main-content { padding: 20px; padding-bottom: 180px; }
-    .hero-card h1 { font-size: 1.5rem; }
-    .ia-status-bar { 
-        left: 10px; right: 10px; bottom: 80px; 
-        height: auto; padding: 15px; border-radius: 20px; 
-        flex-direction: column; gap: 10px; text-align: center;
-    }
-    .ia-central-brain { order: -1; }
-    .profit-value, .advice-value { font-size: 1.3rem; }
-
-    /* Checklist Mobile */
-    .check-item { flex-direction: column; gap: 10px; align-items: flex-start; }
-    .pill-group { width: 100%; display: flex; }
-    .pill-btn { flex: 1; text-align: center; padding: 12px; }
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
 }
 
-/* --- 7. CHECKLIST & PILLS --- */
-.check-item { 
-    background: white; padding: 15px; border-radius: 12px; 
-    border: 1px solid var(--border); display: flex; 
-    justify-content: space-between; align-items: center; 
+/* 4. BARRE IA MOBILE */
+.ia-status-bar {
+    position: fixed;
+    bottom: 80px;
+    left: 10px;
+    right: 10px;
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 15px;
+    padding: 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1500;
 }
-.pill-btn { 
-    padding: 8px 15px; border: 1px solid var(--border); 
-    border-radius: 8px; cursor: pointer; font-weight: 800; background: #f1f5f9; 
-}
-.pill-btn.btn-ok.active { background: var(--success-green) !important; color: white; }
-.pill-btn.btn-ko.active { background: #ef4444 !important; color: white; }
-/* --- AJOUTER CECI TOUT EN BAS DU FICHIER --- */
 
-@media (max-width: 768px) {
-    /* 1. Force le conteneur à s'empiler verticalement */
-    .app-container {
-        flex-direction: column !important;
-    }
+/* 5. VERSION ORDINATEUR (S'active au dessus de 1024px) */
+@media (min-width: 1024px) {
+    .app-container { flex-direction: row; }
 
-    /* 2. Transforme la sidebar en barre de menu basse */
     .sidebar {
-        width: 100% !important;
-        height: 70px !important;
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        flex-direction: row !important;
-        padding: 0 !important;
-        background: #0f172a !important; /* Couleur bleu nuit */
-        z-index: 2000 !important;
+        width: 280px;
+        height: 100vh;
+        position: relative;
+        flex-direction: column;
+        padding: 30px 20px;
     }
 
-    /* 3. Cache le logo pour gagner de la place */
-    .logo { display: none !important; }
+    .logo { display: flex; color: white; margin-bottom: 40px; font-weight: 900; }
 
-    /* 4. Aligne les boutons du menu horizontalement */
     .sidebar nav {
-        display: flex !important;
-        flex-direction: row !important;
-        width: 100% !important;
-        justify-content: space-around !important;
-        align-items: center !important;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 10px;
     }
 
-    /* 5. Style des icônes du menu */
     .nav-item {
-        flex-direction: column !important;
-        gap: 4px !important;
-        padding: 8px !important;
-        font-size: 0.6rem !important;
-        color: #94a3b8 !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        width: auto !important;
+        flex-direction: row;
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+        border-radius: 12px;
+        text-align: left;
     }
 
-    .nav-item.active {
-        color: #6366f1 !important; /* Couleur Indigo */
-        border-top: 3px solid #6366f1 !important;
-        border-radius: 0 !important;
-    }
+    .nav-item.active { background: white; color: var(--primary); }
 
-    /* 6. Ajuste le contenu pour ne pas qu'il soit caché par le menu */
-    .main-content {
-        padding: 15px !important;
-        padding-bottom: 200px !important; /* Espace vital pour scroller */
-    }
+    .main-content { padding: 40px; padding-bottom: 120px; }
 
-    /* 7. IA Status Bar mobile */
+    .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
     .ia-status-bar {
-        left: 10px !important;
-        right: 10px !important;
-        bottom: 85px !important; /* Juste au-dessus du menu */
-        width: auto !important;
-        height: auto !important;
-        padding: 15px !important;
-        flex-direction: column !important;
-        border-radius: 20px !important;
+        left: 300px;
+        right: 25px;
+        bottom: 25px;
+        height: 90px;
     }
 }
+
+/* RESTE DU STYLE (Inputs, etc) */
+input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border); }
+.plate-style { font-size: 1.5rem; text-align: center; font-weight: 900; }
+.profit-value { color: var(--success-green); font-weight: 900; }
