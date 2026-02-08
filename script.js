@@ -187,3 +187,12 @@ function copyAd() {
 }
 
 window.onload = initApp;
+function switchTab(id, btn) {
+    document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // Ajoute cette ligne pour le confort mobile :
+    document.querySelector('.main-content').scrollTop = 0;
+}
