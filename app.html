@@ -29,7 +29,13 @@
                 <div class="dashboard-grid">
                     <div class="card">
                         <h3><i data-lucide="car"></i> Identification</h3>
-                        <input type="text" id="plate" placeholder="AA-123-AA" class="plate-style">
+                       <div class="plate-container">
+    <div class="plate-f"><span>F</span></div>
+    <input type="text" id="plate" placeholder="AA-123-AA" class="plate-input">
+    <button class="plate-search-btn" onclick="lookupVehicle()">
+        <i data-lucide="arrow-right"></i>
+    </button>
+</div>
                         <input type="text" id="model-name" placeholder="Modèle">
                         <input type="text" id="motor" placeholder="Motorisation">
                         <input type="number" id="km" placeholder="Kilométrage" oninput="runCalculations()">
@@ -138,4 +144,5 @@
 </body>
 
 </html>
+
 
