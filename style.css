@@ -185,7 +185,7 @@ input:focus {
 /* Style quand le bouton KO est activé */
 .pill-btn.btn-ko.active { 
     background: #ef4444 !important; 
-    color: red !important; 
+    color: white !important; 
 }
 
 /* --- CONFIGURATION TÉLÉPHONE (MOBILE) --- */
