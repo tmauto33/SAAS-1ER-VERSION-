@@ -3,29 +3,29 @@ lucide.createIcons();
 // Configuration des coûts estimés par l'IA pour chaque point KO
 const inspectionConfig = [
     { name: "Carte Grise", cost: 0, cat: "Admin" },
-    { name: "Contrôle Technique", cost: 60, cat: "Admin" },
+    { name: "Contrôle Technique", cost: 120, cat: "Admin" },
     { name: "Histovec", cost: 0, cat: "Admin" },
     { name: "Non-gage", cost: 0, cat: "Admin" },
-    { name: "Factures d'entretien", cost: 0, cat: "Admin" },
+    { name: "Factures d'entretien", cost: 200, cat: "Admin" },
     { name: "Alignement carrosserie", cost: 400, cat: "Ext" },
     { name: "État peinture", cost: 300, cat: "Ext" },
     { name: "Pneus & Freins", cost: 250, cat: "Ext" },
-    { name: "Optiques/Phares", cost: 50, cat: "Ext" },
-    { name: "Jantes/Rayures", cost: 70, cat: "Ext" },
-    { name: "Niveau Huile", cost: 0, cat: "Meca" },
-    { name: "Bruit Turbo", cost: 350, cat: "Meca" },
-    { name: "Embrayage", cost: 300, cat: "Meca" },
-    { name: "Courroie (date)", cost: 200, cat: "Meca" },
+    { name: "Optiques/Phares", cost: 150, cat: "Ext" },
+    { name: "Jantes/Rayures", cost: 200, cat: "Ext" },
+    { name: "Niveau Huile", cost: 100, cat: "Meca" },
+    { name: "Bruit Turbo", cost: 1200, cat: "Meca" },
+    { name: "Embrayage", cost: 800, cat: "Meca" },
+    { name: "Courroie (date)", cost: 600, cat: "Meca" },
     { name: "Joint de culasse", cost: 1500, cat: "Meca" },
     { name: "Fuites moteur", cost: 400, cat: "Meca" },
-    { name: "Climatisation", cost: 100, cat: "Int" },
-    { name: "État sièges/volant", cost: 0, cat: "Int" },
+    { name: "Climatisation", cost: 500, cat: "Int" },
+    { name: "État sièges/volant", cost: 250, cat: "Int" },
     { name: "Voyants tableau bord", cost: 300, cat: "Int" },
-    { name: "Électronique/GPS", cost: 90, cat: "Int" },
-    { name: "Démarrage à froid", cost: 100, cat: "Essai" },
-    { name: "Passage des vitesses", cost: 300, cat: "Essai" },
-    { name: "Fumées échappement", cost: 400, cat: "Essai" },
-    { name: "Bruit roulement", cost: 100, cat: "Essai" },
+    { name: "Électronique/GPS", cost: 400, cat: "Int" },
+    { name: "Démarrage à froid", cost: 200, cat: "Essai" },
+    { name: "Passage des vitesses", cost: 1000, cat: "Essai" },
+    { name: "Fumées échappement", cost: 600, cat: "Essai" },
+    { name: "Bruit roulement", cost: 150, cat: "Essai" },
     { name: "Précision direction", cost: 350, cat: "Essai" },
     { name: "Freinage urgence", cost: 200, cat: "Essai" },
     { name: "Ralenti stable", cost: 150, cat: "Essai" }
@@ -94,16 +94,16 @@ function runCalculations() {
 
     // Avis de l'IA
     const verdict = document.getElementById('ia-verdict');
-    if (margeNet <= 300) {
+    if (margeNet <= 0) {
         verdict.innerText = "❌ PERTE DÉTECTÉE - NE PAS ACHETER";
         verdict.style.color = "#ef4444";
     } else if (score < 60) {
-        verdict.innerText = "⚠️ TROP DE DÉFAUTS - NEGOCIEZ";
+        verdict.innerText = "⚠️ TROP DE DÉFAUTS - RISQUÉ";
         verdict.style.color = "#fb923c";
     } else if (margeNet > 2000 && roi > 20) {
         verdict.innerText = "🔥 EXCELLENTE AFFAIRE";
         verdict.style.color = "#22c55e";
-    } else if (margeNet > 900)
+    } else {
         verdict.innerText = "✅ ACHAT POSSIBLE";
         verdict.style.color = "#6366f1";
     }
@@ -185,6 +185,5 @@ function copyAd() {
     navigator.clipboard.writeText(text.value);
     alert("Copié !");
 }
-
 
 window.onload = initApp;
