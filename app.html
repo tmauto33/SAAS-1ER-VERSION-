@@ -2,10 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OptimizeX PRO</title>
     <link rel="stylesheet" href="style.css">
-    ...
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div class="app-container">
@@ -29,21 +30,8 @@
                 <div class="dashboard-grid">
                     <div class="card">
                         <h3><i data-lucide="car"></i> Identification</h3>
-                       <div class="plate-container">
-                           <div class="plate-wrapper">
-    <div class="plate-container">
-        <div class="plate-side side-left">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Stars_European_Union.svg" class="eu-stars">
-            <span>F</span>
-        </div>
-        <input type="text" id="plate" placeholder="AA-456-BB" class="plate-input">
-        <div class="plate-side side-right"></div>
-    </div>
-    <button class="plate-search-btn" onclick="lookupVehicle()">
-        <i data-lucide="arrow-right"></i>
-    </button>
-</div>
-               <input type="text" id="model-name" placeholder="Modèle">
+                        <input type="text" id="plate" placeholder="AA-123-AA" class="plate-style">
+                        <input type="text" id="model-name" placeholder="Modèle">
                         <input type="text" id="motor" placeholder="Motorisation">
                         <input type="number" id="km" placeholder="Kilométrage" oninput="runCalculations()">
                         <textarea id="v-notes" placeholder="Notes psychologie vendeur..." style="height: 80px;"></textarea>
@@ -149,8 +137,4 @@
     </div>
     <script src="script.js"></script>
 </body>
-
 </html>
-
-
-
