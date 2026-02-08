@@ -151,3 +151,72 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
 }
 .pill-btn.btn-ok.active { background: var(--success-green) !important; color: white; }
 .pill-btn.btn-ko.active { background: #ef4444 !important; color: white; }
+/* --- AJOUTER CECI TOUT EN BAS DU FICHIER --- */
+
+@media (max-width: 768px) {
+    /* 1. Force le conteneur à s'empiler verticalement */
+    .app-container {
+        flex-direction: column !important;
+    }
+
+    /* 2. Transforme la sidebar en barre de menu basse */
+    .sidebar {
+        width: 100% !important;
+        height: 70px !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        flex-direction: row !important;
+        padding: 0 !important;
+        background: #0f172a !important; /* Couleur bleu nuit */
+        z-index: 2000 !important;
+    }
+
+    /* 3. Cache le logo pour gagner de la place */
+    .logo { display: none !important; }
+
+    /* 4. Aligne les boutons du menu horizontalement */
+    .sidebar nav {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+    }
+
+    /* 5. Style des icônes du menu */
+    .nav-item {
+        flex-direction: column !important;
+        gap: 4px !important;
+        padding: 8px !important;
+        font-size: 0.6rem !important;
+        color: #94a3b8 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        width: auto !important;
+    }
+
+    .nav-item.active {
+        color: #6366f1 !important; /* Couleur Indigo */
+        border-top: 3px solid #6366f1 !important;
+        border-radius: 0 !important;
+    }
+
+    /* 6. Ajuste le contenu pour ne pas qu'il soit caché par le menu */
+    .main-content {
+        padding: 15px !important;
+        padding-bottom: 200px !important; /* Espace vital pour scroller */
+    }
+
+    /* 7. IA Status Bar mobile */
+    .ia-status-bar {
+        left: 10px !important;
+        right: 10px !important;
+        bottom: 85px !important; /* Juste au-dessus du menu */
+        width: auto !important;
+        height: auto !important;
+        padding: 15px !important;
+        flex-direction: column !important;
+        border-radius: 20px !important;
+    }
+}
