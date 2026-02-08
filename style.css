@@ -1,162 +1,197 @@
-/* --- 1. VARIABLES & FONT --- */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+/* --- 1. CONFIGURATION & POLICE --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
 :root {
-    --primary: #0f172a;
-    --accent: #6366f1;
-    --orange: #fb923c;
-    --success: #22c55e;
-    --bg: #f8fafc;
-    --border: #e2e8f0;
+    --primary: #0f172a;    /* Bleu Nuit */
+    --accent: #6366f1;     /* Indigo */
+    --orange: #fb923c;     /* Orange Bouton */
+    --success: #22c55e;    /* Vert Profit */
+    --bg: #f1f5f9;         /* Gris très clair fond */
     --card: #ffffff;
+    --border: #e2e8f0;
+    --text-light: #94a3b8;
 }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
 body { 
     margin: 0; 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     background: var(--bg); 
     color: var(--primary);
-    line-height: 1.5;
 }
 
-/* --- 2. STRUCTURE PRINCIPALE --- */
-.app-container {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-}
+.app-container { display: flex; height: 100vh; width: 100vw; }
 
-/* --- 3. SIDEBAR (PC) --- */
+/* --- 2. SIDEBAR PC --- */
 .sidebar {
-    width: 280px;
+    width: 260px;
     background: var(--primary);
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
-    color: white;
     flex-shrink: 0;
 }
 
 .logo {
-    font-size: 1.5rem;
+    color: white;
+    font-size: 1.4rem;
     font-weight: 800;
     margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    letter-spacing: -1px;
 }
-
-.sidebar nav { display: flex; flex-direction: column; gap: 8px; }
 
 .nav-item {
     background: transparent;
     border: none;
-    color: #94a3b8;
-    padding: 14px 18px;
-    border-radius: 14px;
+    color: var(--text-light);
+    padding: 14px 16px;
+    border-radius: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 12px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    transition: 0.3s;
-    text-align: left;
+    font-weight: 600;
+    margin-bottom: 8px;
+    transition: 0.2s;
+    width: 100%;
 }
 
-.nav-item.active {
-    background: white;
-    color: var(--primary);
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-}
+.nav-item i { width: 18px; }
+.nav-item.active { background: white; color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
-/* --- 4. CONTENU --- */
+/* --- 3. CONTENU PRINCIPAL --- */
 .main-content {
     flex: 1;
     padding: 40px;
     overflow-y: auto;
-    padding-bottom: 150px;
+    padding-bottom: 160px;
 }
 
-h1 { font-size: 2rem; font-weight: 800; margin-bottom: 30px; }
+h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; }
 h1 span { color: var(--accent); }
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
 }
 
 .card {
     background: var(--card);
-    padding: 30px;
-    border-radius: 24px;
+    padding: 25px;
+    border-radius: 20px;
     border: 1px solid var(--border);
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
 }
 
-.card h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+.card h3 { margin-top: 0; margin-bottom: 20px; font-size: 1rem; color: var(--primary); font-weight: 700; }
 
-/* --- 5. INPUTS STYLE PRO --- */
+/* --- 4. STYLE DE LA PLAQUE (COMME SUR LA PHOTO) --- */
+.plate-container {
+    display: flex;
+    align-items: stretch;
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 55px;
+    margin-bottom: 20px;
+}
+
+.plate-f {
+    background: #003399; /* Bleu Europe */
+    color: white;
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.plate-input {
+    flex: 1;
+    border: none !important;
+    background: transparent !important;
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.plate-search-btn {
+    background: #f1f5f9;
+    border: none;
+    border-left: 1px solid var(--border);
+    width: 50px;
+    cursor: pointer;
+    color: var(--primary);
+    transition: 0.2s;
+}
+
+.plate-search-btn:hover { background: var(--primary); color: white; }
+
+/* --- 5. INPUTS & BOUTONS --- */
 input, select, textarea {
     width: 100%;
-    padding: 15px;
-    border-radius: 12px;
-    border: 2px solid #f1f5f9;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
     background: #f8fafc;
-    font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 15px;
 }
 
-input:focus { border-color: var(--accent); outline: none; background: white; }
-
-.plate-style {
-    font-size: 2rem !important;
-    font-weight: 900;
-    text-align: center;
+.btn-orange {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
     text-transform: uppercase;
-    border: 3px solid var(--primary) !important;
-    color: var(--primary);
 }
 
-/* --- 6. IA STATUS BAR (PC) --- */
+/* --- 6. BARRE IA BAS --- */
 .ia-status-bar {
     position: fixed;
-    bottom: 25px;
-    left: 305px;
-    right: 25px;
-    height: 90px;
+    bottom: 20px;
+    left: 280px;
+    right: 20px;
+    height: 80px;
     background: var(--primary);
-    border-radius: 25px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 30px;
     color: white;
     justify-content: space-between;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+    z-index: 1000;
 }
 
-.profit-value { color: var(--success); font-size: 1.8rem; font-weight: 900; }
-.advice-value { color: var(--orange); font-size: 1.8rem; font-weight: 900; }
+.profit-value { color: var(--success); font-size: 1.5rem; font-weight: 800; }
 
-/* --- 7. MOBILE RESPONSIVE (SMARTPHONE) --- */
+/* --- 7. RESPONSIVE SMARTPHONE --- */
 @media (max-width: 768px) {
     .app-container { flex-direction: column; }
 
-    /* MENU MOBILE */
     .sidebar {
         width: 100%;
-        height: 75px;
+        height: 70px;
         position: fixed;
         bottom: 0;
         left: 0;
         flex-direction: row;
         padding: 0 10px;
         z-index: 2000;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
     }
 
     .logo { display: none; }
@@ -165,43 +200,28 @@ input:focus { border-color: var(--accent); outline: none; background: white; }
         flex-direction: row;
         width: 100%;
         justify-content: space-around;
-        gap: 0;
     }
 
     .nav-item {
         flex-direction: column;
         padding: 10px 5px;
-        font-size: 0.65rem;
+        font-size: 0.6rem;
+        width: auto;
+        margin: 0;
         gap: 4px;
-        border-radius: 0;
-        width: 20%;
-        text-align: center;
-        justify-content: center;
     }
 
-    .nav-item i, .nav-item svg { width: 20px; height: 20px; }
+    .nav-item.active { background: transparent; color: var(--accent); border-top: 3px solid var(--accent); border-radius: 0; }
 
-    .nav-item.active {
-        background: transparent;
-        color: var(--accent);
-        box-shadow: none;
-        border-top: 3px solid var(--accent);
-    }
-
-    /* CONTENU MOBILE */
-    .main-content { padding: 20px; padding-bottom: 220px; }
-    h1 { font-size: 1.6rem; }
-    .dashboard-grid { grid-template-columns: 1fr; }
-
-    /* IA BAR MOBILE */
+    .main-content { padding: 20px; padding-bottom: 200px; }
+    
     .ia-status-bar {
-        left: 15px;
-        right: 15px;
-        bottom: 85px;
+        left: 10px;
+        right: 10px;
+        bottom: 80px;
         height: auto;
-        padding: 15px;
+        padding: 12px;
         flex-direction: column;
-        gap: 10px;
-        border-radius: 20px;
+        gap: 8px;
     }
 }
