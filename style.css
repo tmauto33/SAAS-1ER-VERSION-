@@ -1,331 +1,234 @@
+/* --- VARIABLES DE COULEURS ET STYLE --- */
+/* Modifie ces valeurs pour changer le look global (thème) */
 :root {
-    --primary: #0f172a;
-    --accent: #6366f1;
-    --orange: #fb923c;
-    --success-green: #22c55e;
-    --bg: #f8fafc;
-    --border: #e2e8f0;
+    --primary: #0f172a;        /* Bleu foncé : Fond du menu et textes importants */
+    --accent: #6366f1;         /* Indigo : Couleur des boutons actifs et focus */
+    --orange: #fb923c;         /* Orange : Alertes et conseils de l'IA */
+    --success-green: #22c55e;  /* Vert : Bénéfices et points OK */
+    --bg: #f8fafc;             /* Gris très clair : Fond de la page */
+    --border: #e2e8f0;         /* Gris clair : Bordures des cartes */
 }
 
-body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--primary); font-size: 16px; }
-.app-container { display: flex; height: 100vh; overflow: hidden; }
-
-/* Sidebar */
-.sidebar { width: 280px; background: var(--primary); color: white; padding: 30px 20px; display: flex; flex-direction: column; flex-shrink: 0; }
-.logo { font-size: 1.6rem; font-weight: 900; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
-.logo span { color: var(--accent); }
-.nav-item { width: 100%; padding: 16px; margin-bottom: 8px; border: none; border-radius: 14px; background: transparent; color: #94a3b8; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: 0.3s; text-align: left; }
-.nav-item.active { background: white; color: var(--primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-
-/* Main Content Full Width */
-.main-content { flex: 1; padding: 40px; overflow-y: auto; padding-bottom: 120px; }
-.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; }
-
-.hero-card { margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-.hero-card h1 { font-size: 2rem; font-weight: 800; margin: 0; }
-.hero-card span { color: var(--accent); }
-
-.card { background: white; padding: 30px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-.card h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-.dark-card { background: var(--primary); color: white; border: none; }
-
-/* Inputs Pros */
-input, select, textarea { width: 100%; padding: 15px; margin-top: 5px; margin-bottom: 20px; border: 2px solid #f1f5f9; border-radius: 12px; font-size: 1rem; box-sizing: border-box; background: #f8fafc; transition: 0.2s; }
-input:focus { border-color: var(--accent); outline: none; background: white; }
-.plate-style { font-size: 2rem !important; font-weight: 900; text-align: center; border: 3px solid var(--primary) !important; color: var(--primary); text-transform: uppercase; }
-
-/* Badges de performance */
-.roi-badge { background: #e0e7ff; color: #4338ca; padding: 15px; border-radius: 12px; text-align: center; font-weight: 800; font-size: 1.1rem; }
-.flash-item { display: flex; justify-content: space-between; margin-bottom: 15px; }
-.flash-item span { opacity: 0.7; font-size: 0.9rem; }
-.flash-item strong { font-size: 1.2rem; color: var(--success-green); }
-
-/* IA Status Bar */
-.ia-status-bar { position: fixed; bottom: 25px; left: 305px; right: 25px; height: 95px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-radius: 30px; display: flex; align-items: center; padding: 0 40px; color: white; justify-content: space-between; z-index: 1000; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
-.stat-group small { display: block; font-size: 0.65rem; font-weight: 800; color: #94a3b8; letter-spacing: 1px; }
-.profit-value { font-size: 1.8rem; font-weight: 900; color: var(--success-green); }
-.advice-value { font-size: 1.8rem; font-weight: 900; color: var(--orange); }
-
-/* Animation Pulse */
-.ia-central-brain { display: flex; align-items: center; gap: 20px; }
-.brain-pulse { width: 14px; height: 14px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 20px var(--orange); animation: pulse-ia 2s infinite; }
-@keyframes pulse-ia { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
-.confidence-bar-bg { width: 150px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 8px; }
-.confidence-bar-fill { height: 100%; background: var(--accent); width: 0%; border-radius: 10px; transition: 0.5s; }
-
-/* Modal */
-.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
-.modal-content { background: white; margin: 8% auto; padding: 40px; border-radius: 30px; width: 550px; max-width: 90%; }
-.recap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.recap-item strong { display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase; }
-.recap-objection { background: #fffbeb; padding: 20px; border-radius: 15px; border-left: 6px solid var(--orange); margin-top: 25px; }
-
-/* Responsive */
-/* --- OPTIMISATION MOBILE --- */
-@media (max-width: 768px) {
-    .app-container {
-        flex-direction: column; /* Empile la nav et le contenu */
-        height: 100vh;
-    }
-
-    /* Navigation style "App Mobile" en bas */
-    .sidebar {
-        width: 100%;
-        height: 70px;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        z-index: 2000;
-        padding: 0;
-        background: var(--primary);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .logo { display: none; } /* On cache le logo sur mobile pour gagner de la place */
-
-    .sidebar nav {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-    }
-
-    .nav-item {
-        flex-direction: column;
-        gap: 4px;
-        padding: 8px;
-        font-size: 0.65rem;
-        text-align: center;
-        width: auto;
-        margin: 0;
-        border-radius: 8px;
-        color: #94a3b8;
-    }
-
-    .nav-item i { width: 20px; height: 20px; } /* Icônes plus petites */
-
-    .nav-item.active {
-        background: transparent;
-        color: var(--accent);
-    }
-
-    /* Ajustement du contenu principal */
-    .main-content {
-        padding: 15px;
-        padding-bottom: 180px; /* Espace pour la barre nav ET la barre IA */
-    }
-
-    .hero-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .hero-card h1 { font-size: 1.5rem; }
-
-    /* Grilles en une seule colonne */
-    .dashboard-grid, .checklist-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* Barre IA flottante au-dessus de la nav */
-    .ia-status-bar {
-        left: 10px;
-        right: 10px;
-        bottom: 80px; /* Juste au dessus de la barre de navigation */
-        height: auto;
-        padding: 15px;
-        flex-wrap: wrap;
-        border-radius: 20px;
-        gap: 10px;
-    }
-
-    .ia-central-brain { order: -1; width: 100%; justify-content: flex-start; margin-bottom: 5px; }
-    .profit-value, .advice-value { font-size: 1.2rem; }
-
-    /* Checklist adaptée au pouce */
-    .check-item {
-        padding: 18px;
-        margin-bottom: 5px;
-    }
-
-    .pill-btn {
-        padding: 12px 20px; /* Plus gros pour cliquer facilement au doigt */
-    }
-
-    /* Modal plein écran sur mobile */
-    .modal-content {
-        width: 95%;
-        margin: 5% auto;
-        padding: 20px;
-    }
+/* --- BASE DE LA PAGE --- */
+body { 
+    margin: 0; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background: var(--bg); 
+    color: var(--primary); 
+    font-size: 16px; /* Taille de texte de base */
 }
+
+/* Conteneur principal qui tient tout l'écran */
+.app-container { 
+    display: flex; 
+    height: 100vh; 
+    overflow: hidden; /* Empêche le scroll global pour garder le menu fixe */
+}
+
+/* --- BARRE LATÉRALE (MENU PC) --- */
+.sidebar { 
+    width: 280px;              /* Largeur du menu à gauche */
+    background: var(--primary); 
+    color: white; 
+    padding: 30px 20px; 
+    display: flex; 
+    flex-direction: column; 
+    flex-shrink: 0; 
+}
+
+/* Style du Logo */
+.logo { 
+    font-size: 1.6rem; 
+    font-weight: 900; 
+    margin-bottom: 40px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+/* Boutons du menu */
+.nav-item { 
+    width: 100%; 
+    padding: 16px; 
+    margin-bottom: 8px; 
+    border: none; 
+    border-radius: 14px;      /* Arrondi des boutons du menu */
+    background: transparent; 
+    color: #94a3b8;           /* Couleur du texte inactif */
+    font-weight: 700; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    transition: 0.3s; 
+}
+
+/* État quand on clique sur un onglet du menu */
+.nav-item.active { 
+    background: white;        /* Fond blanc pour l'onglet actif */
+    color: var(--primary);    /* Texte redevient foncé */
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); 
+}
+
+/* --- ZONE DE CONTENU PRINCIPALE --- */
+.main-content { 
+    flex: 1; 
+    padding: 40px; 
+    overflow-y: auto;         /* Permet de scroller le contenu sans bouger le menu */
+    padding-bottom: 120px;    /* Espace pour ne pas cacher le bas derrière la barre IA */
+}
+
+/* Organisation des cartes (Dashboard) */
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Aligne les cartes auto selon la largeur */
+    gap: 20px;                /* Espace entre les cartes */
+}
+
+/* Style des cartes blanches */
+.card { 
+    background: white; 
+    padding: 30px; 
+    border-radius: 24px;      /* Arrondi prononcé pour un look moderne */
+    border: 1px solid var(--border); 
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
+}
+
+/* Titres à l'intérieur des cartes */
+.card h3 { 
+    margin-top: 0; 
+    font-size: 1.1rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+/* --- FORMULAIRES (INPUTS) --- */
+input, select, textarea { 
+    width: 100%; 
+    padding: 15px; 
+    margin-top: 5px; 
+    margin-bottom: 20px; 
+    border: 2px solid #f1f5f9; 
+    border-radius: 12px; 
+    font-size: 1rem; 
+    box-sizing: border-box; 
+    background: #f8fafc; 
+}
+
+/* Effet quand on clique dans un champ de texte */
+input:focus { 
+    border-color: var(--accent); 
+    outline: none; 
+    background: white; 
+}
+
+/* Champ spécifique pour la Plaque d'immatriculation */
+.plate-style { 
+    font-size: 2rem !important; 
+    font-weight: 900; 
+    text-align: center; 
+    border: 3px solid var(--primary) !important; 
+}
+
+/* --- BARRE IA (FIXE EN BAS) --- */
+.ia-status-bar { 
+    position: fixed; 
+    bottom: 25px; 
+    left: 305px;              /* Décalé pour ne pas chevaucher le menu PC */
+    right: 25px; 
+    height: 95px; 
+    background: rgba(15, 23, 42, 0.95); /* Fond sombre transparent */
+    backdrop-filter: blur(10px); /* Flou derrière la barre */
+    border-radius: 30px; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 40px; 
+    color: white; 
+    justify-content: space-between; 
+    z-index: 1000; 
+}
+
+/* --- CHECKLIST (EXPERTISE) --- */
 .checklist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
-    margin-top: 20px;
 }
 
+/* Chaque ligne de la checklist */
 .check-item {
     background: white;
     padding: 15px;
     border-radius: 12px;
     border: 1px solid var(--border);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Texte à gauche, boutons à droite */
     align-items: center;
-    font-size: 0.9rem;
-    font-weight: 600;
 }
 
-.pill-btn {
-    border: 1px solid var(--border);
-    background: #f8fafc;
-    padding: 5px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 800;
-}
-
-/* S'assure que le contenu prend toute la place */
-.main-content {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-.pill-group {
-    display: flex;
-    gap: 5px;
-}
-
+/* Boutons OK et KO */
 .pill-btn {
     padding: 6px 12px;
-    border: 1px solid var(--border);
     border-radius: 8px;
     cursor: pointer;
     font-weight: 800;
     background: #f1f5f9;
-    transition: 0.2s;
 }
 
-.pill-btn.btn-ok.active {
-    background: #22c55e !important;
-    color: white !important;
-    border-color: #16a34a;
+/* Style quand le bouton OK est activé */
+.pill-btn.btn-ok.active { 
+    background: var(--success-green) !important; 
+    color: white !important; 
 }
 
-.pill-btn.btn-ko.active {
-    background: #ef4444 !important;
-    color: white !important;
-    border-color: #dc2626;
+/* Style quand le bouton KO est activé */
+.pill-btn.btn-ko.active { 
+    background: #ef4444 !important; 
+    color: white !important; 
 }
 
-.check-item small {
-    font-size: 0.65rem;
-    color: #94a3b8;
-    text-transform: uppercase;
-}
-/* --- OPTIMISATION MOBILE --- */
+/* --- CONFIGURATION TÉLÉPHONE (MOBILE) --- */
 @media (max-width: 768px) {
-    /* On empile les éléments pour éviter les débordements */
-    .app-container {
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-    }
+    
+    .app-container { flex-direction: column; }
 
-    /* MENU : On le déplace du côté vers le bas de l'écran */
+    /* Le menu passe de "Gauché" à "Bas de l'écran" */
     .sidebar {
-        width: 100%;
-        height: 70px;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        z-index: 2000;
-        padding: 0;
-        background: var(--primary-blue);
-        flex-direction: row; /* Alignement horizontal */
-        justify-content: space-around;
-        border-top: 2px solid var(--accent-orange);
+        width: 100%; 
+        height: 70px; 
+        position: fixed; 
+        bottom: 0; 
+        left: 0; 
+        padding: 0; 
+        flex-direction: row; /* Aligne les boutons horizontalement */
+        background: var(--primary);
+        border-top: 2px solid var(--accent); /* Petite ligne de couleur en haut du menu */
     }
 
-    .logo { display: none; } /* On cache le logo pour libérer de l'espace */
-
-    .sidebar nav {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-        align-items: center;
-    }
-
+    /* Cache le texte du menu pour ne garder que les icônes si besoin */
     .nav-item {
-        flex-direction: column; /* Icône au dessus du texte */
-        font-size: 0.65rem;
-        padding: 8px;
-        margin: 0;
-        gap: 4px;
-        text-align: center;
-        width: 20%;
+        flex-direction: column; 
+        font-size: 0.65rem; 
+        width: 20%; /* 5 boutons = 20% chacun */
     }
 
-    .nav-item i { width: 20px; height: 20px; }
-
-    /* ZONE DE CONTENU : On libère l'espace pour pouvoir scroller */
-    .main-content {
-        flex: 1;
-        padding: 15px;
-        padding-bottom: 180px; /* Espace pour pas que les cartes soient cachées par l'IA et le Menu */
-        overflow-y: auto;
-    }
-
-    /* Les cartes s'affichent sur une seule colonne */
-    .grid-container, .dashboard-grid, .checklist-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px;
-    }
-
-    /* BARRE IA : Elle flotte au-dessus du menu */
+    /* La barre IA remonte pour ne pas être cachée par le menu */
     .ia-status-bar {
-        position: fixed;
-        bottom: 80px; /* Juste au-dessus du menu */
-        left: 10px;
-        right: 10px;
-        width: auto;
-        height: auto;
-        padding: 12px;
-        border-radius: 20px;
-        flex-wrap: wrap; /* Permet d'empiler les chiffres si besoin */
-        z-index: 1500;
-    }
-
-    .ia-central-brain { order: -1; width: 100%; justify-content: flex-start; margin-bottom: 5px; }
-    .profit-value, .advice-value { font-size: 1.2rem; }
-
-    /* Checklist facile à cliquer au doigt */
-    .check-item {
+        left: 10px; 
+        right: 10px; 
+        bottom: 80px;         /* Placé juste au dessus du menu mobile */
+        height: auto; 
         padding: 15px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
     }
-    .pill-group { width: 100%; }
-    .pill-btn { flex: 1; padding: 12px; text-align: center; }
 
-    /* Modals (Récapitulatif) */
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-        padding: 20px;
+    /* Les cartes prennent toute la largeur sur mobile */
+    .dashboard-grid, .checklist-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Les boutons de checklist deviennent plus gros (plus facile au doigt) */
+    .pill-btn {
+        padding: 12px 20px;
     }
 }
