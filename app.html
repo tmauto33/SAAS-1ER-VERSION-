@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OptimizeX PRO</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
@@ -11,38 +11,37 @@
 <body>
     <div class="app-container">
         <aside class="sidebar">
-            <div class="logo"><i data-lucide="car"></i> OPTIMIZEX</div>
+            <div class="logo"><i data-lucide="zap"></i> OX<span>PRO</span></div>
             <nav>
-                <button class="nav-item active" onclick="switchTab('analyse', this)"><i data-lucide="layout-dashboard"></i> ANALYSE</button>
-                <button class="nav-item" onclick="switchTab('expertise', this)"><i data-lucide="check-square"></i> INSPECTION</button>
-                <button class="nav-item" onclick="switchTab('nego', this)"><i data-lucide="trending-down"></i> NÉGOCIATION</button>
-                <button class="nav-item" onclick="switchTab('annonce', this)"><i data-lucide="megaphone"></i> ANNONCE</button>
-                <button class="nav-item btn-db" onclick="switchTab('dashboard', this)" style="margin-top:20px;"><i data-lucide="database"></i> HISTORIQUE</button>
+                <button class="nav-item active" onclick="switchTab('analyse', this)"><i data-lucide="layout-dashboard"></i> <span>Analyse</span></button>
+                <button class="nav-item" onclick="switchTab('expertise', this)"><i data-lucide="clipboard-check"></i> <span>Expertise</span></button>
+                <button class="nav-item" onclick="switchTab('nego', this)"><i data-lucide="trending-down"></i> <span>Négo</span></button>
+                <button class="nav-item" onclick="switchTab('dashboard', this)"><i data-lucide="database"></i> <span>Historique</span></button>
+                <button class="nav-item" onclick="switchTab('annonce', this)"><i data-lucide="megaphone"></i> <span>Annonce</span></button>
             </nav>
         </aside>
 
         <main class="main-content">
             <section id="analyse" class="view">
                 <div class="hero-card">
-                    <h1>Dossier <span>Analyse Globale</span></h1>
+                    <h1>Dossier <span>Analyse</span></h1>
                     <button class="btn-primary" onclick="lookupVehicle()">VÉHICULE TEST</button>
                 </div>
                 <div class="dashboard-grid">
                     <div class="card">
                         <h3><i data-lucide="car"></i> Identification</h3>
                         <input type="text" id="plate" placeholder="AA-123-AA" class="plate-style">
-                        <input type="text" id="model-name" placeholder="Modèle">
-                        <input type="text" id="motor" placeholder="Motorisation">
+                        <input type="text" id="model-name" placeholder="Marque & Modèle">
                         <input type="number" id="km" placeholder="Kilométrage" oninput="runCalculations()">
-                        <textarea id="v-notes" placeholder="Notes psychologie vendeur..." style="height: 80px;"></textarea>
+                        <textarea id="v-notes" placeholder="Notes psychologie vendeur..." style="height: 60px;"></textarea>
                     </div>
                     <div class="card">
-                        <h3><i data-lucide="calculator"></i> Finance & Taxes</h3>
+                        <h3><i data-lucide="calculator"></i> Finance</h3>
                         <label>Valeur Marché (€)</label>
-                        <input type="number" id="market-val" oninput="runCalculations()">
-                        <label>Prix D'achat (€)</label>
-                        <input type="number" id="target-price" oninput="runCalculations()">
-                        <label>Frais Administratifs (CG, etc)</label>
+                        <input type="number" id="market-val" oninput="runCalculations()" placeholder="Prix de revente">
+                        <label>Prix d'Achat (€)</label>
+                        <input type="number" id="target-price" oninput="runCalculations()" placeholder="Prix payé au vendeur">
+                        <label>Frais Administratifs (€)</label>
                         <input type="number" id="fees-admin" value="0" oninput="runCalculations()">
                         <div class="roi-badge">ROI : <span id="roi-val">0</span>%</div>
                     </div>
@@ -60,19 +59,19 @@
                     <div class="card dark-card">
                         <h3><i data-lucide="info"></i> Synthèse</h3>
                         <div class="flash-item"><span>Marge Net</span><strong id="flash-marge">0 €</strong></div>
-                        <div class="flash-item"><span>Frais Réparations</span><strong id="flash-repairs">0 €</strong></div>
-                        <div class="flash-item"><span>Score Confiance</span><strong id="flash-score">100/100</strong></div>
+                        <div class="flash-item"><span>Frais IA</span><strong id="flash-repairs">0 €</strong></div>
+                        <div class="flash-item"><span>Score</span><strong id="flash-score">100/100</strong></div>
                     </div>
                 </div>
             </section>
 
             <section id="expertise" class="view" style="display:none;">
-                <div class="hero-card"><h1>Inspection <span>27 Points</span></h1></div>
+                <div class="hero-card"><h1>Expertise <span>27 Points</span></h1></div>
                 <div id="checklist-render" class="checklist-grid"></div>
                 <div class="card" style="margin-top:20px;">
-                    <h3>Calcul des frais</h3>
-                    <input type="number" id="repairs" placeholder="Total frais estimés (€)" oninput="runCalculations()">
-                    <textarea id="body-defects" placeholder="Détails des points KO..." style="height:100px;"></textarea>
+                    <h3>Frais de remise en état (IA)</h3>
+                    <input type="number" id="repairs" readonly style="background:#f1f5f9; font-weight:bold; color:var(--accent);">
+                    <textarea id="body-defects" placeholder="Détails des réparations à prévoir..."></textarea>
                 </div>
             </section>
 
@@ -88,26 +87,26 @@
 
             <section id="annonce" class="view" style="display:none;">
                 <div class="card">
-                    <textarea id="ad-output" rows="15"></textarea>
-                    <button class="btn-orange" onclick="copyAd()">COPIER</button>
+                    <textarea id="ad-output" rows="15" style="width:100%; border:none; outline:none; font-family:inherit;"></textarea>
+                    <button class="btn-orange" onclick="copyAd()">COPIER L'ANNONCE</button>
                 </div>
             </section>
         </main>
 
         <footer class="ia-status-bar">
             <div class="stat-group">
-                <small>BÉNÉFICE NET</small>
+                <small>BÉNÉFICE</small>
                 <div class="profit-value">+ <span id="marge-val">0</span> €</div>
             </div>
             <div class="ia-central-brain">
-                <div id="ia-pulse" class="brain-pulse"></div>
+                <div class="brain-pulse"></div>
                 <div class="ia-text-wrap">
                     <div id="ia-verdict">ANALYSE...</div>
                     <div class="confidence-bar-bg"><div id="confidence-level" class="confidence-bar-fill"></div></div>
                 </div>
             </div>
             <div class="stat-group">
-                <small>CONSEIL ACHAT MAX</small>
+                <small>ACHAT MAX</small>
                 <div class="advice-value"><span id="ia-advice">0</span> €</div>
             </div>
         </footer>
@@ -117,24 +116,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="recap-model">Détails</h2>
-                <button class="close-btn" onclick="closeRecap()">&times;</button>
+                <button onclick="closeRecap()" class="close-btn">&times;</button>
             </div>
             <div class="recap-grid">
-                <div class="recap-item"><strong>Vendeur</strong><span id="recap-vendeur"></span></div>
-                <div class="recap-item"><strong>Contact</strong><span id="recap-phone"></span></div>
-                <div class="recap-item"><strong>Marge</strong><span id="recap-marge"></span></div>
-                <div class="recap-item"><strong>ROI</strong><span id="recap-roi-display"></span></div>
+                <div><small>VENDEUR</small><p id="recap-vendeur"></p></div>
+                <div><small>MARGE</small><p id="recap-marge" style="color:var(--success-green); font-weight:800;"></p></div>
             </div>
             <div class="recap-objection">
-                <strong>💡 RIPOSTE NÉGO</strong>
+                <strong>💡 RIPOSTE NÉGO :</strong>
                 <p id="recap-riposte"></p>
             </div>
-            <div style="margin-top:20px; display:flex; gap:10px;">
-                <button class="btn-delete" id="delete-btn">SUPPRIMER</button>
-                <button class="btn-orange" onclick="closeRecap()">FERMER</button>
-            </div>
+            <button class="btn-delete" id="delete-btn" style="margin-top:15px;">SUPPRIMER LE DOSSIER</button>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
