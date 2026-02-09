@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OptimizeX PRO</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="app-container">
+
+    <div class="app-container" style="display: flex; width: 100%;">
         <aside class="sidebar">
             <div class="logo"><i data-lucide="zap"></i> OX<span>PRO</span></div>
             <nav>
@@ -18,33 +19,35 @@
                 <button class="nav-item" onclick="switchTab('nego', this)"><i data-lucide="trending-down"></i> <span>Négo</span></button>
                 <button class="nav-item" onclick="switchTab('dashboard', this)"><i data-lucide="database"></i> <span>Historique</span></button>
                 <button class="nav-item" onclick="switchTab('annonce', this)"><i data-lucide="megaphone"></i> <span>Annonce</span></button>
+                <button class="nav-item" onclick="switchTab('options', this)"><i data-lucide="settings"></i> <span>Options</span></button>
             </nav>
         </aside>
 
         <main class="main-content">
-            <section id="analyse" class="view">
-                <div class="hero-card">
-                    <h1>Dossier <span>Analyse</span></h1>
-                    <button class="btn-primary" onclick="lookupVehicle()">VÉHICULE TEST</button>
-                </div>
+            
+            <section id="analyse" class="view active">
+                <h1>Dossier <span>Analyse</span></h1>
+                <button class="btn-orange" onclick="lookupVehicle()" style="width: auto; padding: 10px 20px; margin-bottom: 25px; background: var(--accent);">VÉHICULE TEST</button>
+                
                 <div class="dashboard-grid">
                     <div class="card">
                         <h3><i data-lucide="car"></i> Identification</h3>
                         <input type="text" id="plate" placeholder="AA-123-AA" class="plate-style">
                         <input type="text" id="model-name" placeholder="Marque & Modèle">
                         <input type="number" id="km" placeholder="Kilométrage" oninput="runCalculations()">
-                        <textarea id="v-notes" placeholder="Notes psychologie vendeur..." style="height: 60px;"></textarea>
                     </div>
+
                     <div class="card">
                         <h3><i data-lucide="calculator"></i> Finance</h3>
-                        <label>Valeur Marché (€)</label>
+                        <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">VALEUR MARCHÉ (€)</label>
                         <input type="number" id="market-val" oninput="runCalculations()" placeholder="Prix de revente">
-                        <label>Prix d'Achat (€)</label>
+                        <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">PRIX D'ACHAT CIBLE (€)</label>
                         <input type="number" id="target-price" oninput="runCalculations()" placeholder="Prix payé au vendeur">
-                        <label>Frais Administratifs (€)</label>
+                        <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">FRAIS ADMIN (€)</label>
                         <input type="number" id="fees-admin" value="0" oninput="runCalculations()">
-                        <div class="roi-badge">ROI : <span id="roi-val">0</span>%</div>
+                        <div id="roi-badge" style="font-weight: 800; color: var(--accent); margin-top: 10px;">ROI : <span id="roi-val">0</span>%</div>
                     </div>
+
                     <div class="card">
                         <h3><i data-lucide="user"></i> Contact</h3>
                         <input type="text" id="v-name" placeholder="Nom du vendeur">
@@ -54,80 +57,133 @@
                             <option value="ACHETÉ">✅ ACHETÉ</option>
                             <option value="REFUSÉ">❌ REFUSÉ</option>
                         </select>
-                        <button class="btn-orange" onclick="saveCurrentDeal()">💾 SAUVEGARDER</button>
+                        <button class="btn-orange" onclick="saveCurrentDeal()">💾 SAUVEGARDER LE DOSSIER</button>
                     </div>
+
                     <div class="card dark-card">
-                        <h3><i data-lucide="info"></i> Synthèse</h3>
-                        <div class="flash-item"><span>Marge Net</span><strong id="flash-marge">0 €</strong></div>
-                        <div class="flash-item"><span>Frais IA</span><strong id="flash-repairs">0 €</strong></div>
-                        <div class="flash-item"><span>Score</span><strong id="flash-score">100/100</strong></div>
+                        <h3><i data-lucide="info" style="color: var(--accent);"></i> Synthèse Rapide</h3>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div style="display: flex; justify-content: space-between;"><span>Marge Net</span><strong id="flash-marge" style="color: var(--success);">0 €</strong></div>
+                            <div style="display: flex; justify-content: space-between;"><span>Frais IA</span><strong id="flash-repairs" style="color: var(--orange);">0 €</strong></div>
+                            <div style="display: flex; justify-content: space-between;"><span>Score État</span><strong id="flash-score">100/100</strong></div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section id="expertise" class="view" style="display:none;">
-                <div class="hero-card"><h1>Expertise <span>27 Points</span></h1></div>
-                <div id="checklist-render" class="checklist-grid"></div>
-                <div class="card" style="margin-top:20px;">
-                    <h3>Frais de remise en état (IA)</h3>
-                    <input type="number" id="repairs" readonly style="background:#f1f5f9; font-weight:bold; color:var(--accent);">
-                    <textarea id="body-defects" placeholder="Détails des réparations à prévoir..."></textarea>
+            <section id="expertise" class="view">
+                <h1>Expertise <span>27 Points</span></h1>
+                <div id="checklist-render" class="dashboard-grid"></div>
+                <div class="card" style="margin-top:24px;">
+                    <h3>Frais de remise en état (Estimation IA)</h3>
+                    <input type="number" id="repairs" readonly style="font-size: 1.5rem; color: var(--accent); font-weight: 800; text-align: center; background: white;">                  
                 </div>
             </section>
 
-            <section id="nego" class="view" style="display:none;">
-                <div class="hero-card"><h1>Stratégie <span>Ackermann</span></h1></div>
-                <div id="ackermann-timeline" class="dashboard-grid"></div>
+            <section id="nego" class="view">
+                <h1>Stratégie <span>Ackermann</span></h1>
+                
+                <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="card">
+                        <h3><i data-lucide="brain"></i> Psychologie Vendeur</h3>
+                        <textarea id="v-notes" 
+                                  placeholder="Ex: Le vendeur est pressé car il a déjà acheté sa nouvelle voiture..." 
+                                  style="width:100%; height:120px; margin-top:10px; padding:12px; border-radius:8px; border:1px solid #ddd; font-family:inherit;"
+                                  oninput="runCalculations()"></textarea>
+                    </div>
+
+                    <div class="card">
+                        <h3><i data-lucide="shield-alert"></i> Arguments de Riposte</h3>
+                        <div id="recap-riposte-nego" style="margin-top: 15px; font-size: 1.1rem; line-height: 1.5;">
+                            Attente de données...
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:30px; margin-bottom:15px;">Paliers de Négociation</h3>
+                <div id="ackermann-timeline" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                    </div>
             </section>
 
-            <section id="dashboard" class="view" style="display:none;">
-                <div class="hero-card"><h1>Historique</h1></div>
+            <section id="dashboard" class="view">
+                <h1>Historique <span>Dossiers</span></h1>
                 <div id="history-list" class="dashboard-grid"></div>
             </section>
 
-            <section id="annonce" class="view" style="display:none;">
+            <section id="annonce" class="view">
+                <h1>Générateur <span>d'Annonce</span></h1>
                 <div class="card">
-                    <textarea id="ad-output" rows="15" style="width:100%; border:none; outline:none; font-family:inherit;"></textarea>
+                    <textarea id="ad-output" style="height: 300px; font-family: monospace; font-size: 0.9rem;" placeholder="L'annonce pro sera générée ici..."></textarea>
                     <button class="btn-orange" onclick="copyAd()">COPIER L'ANNONCE</button>
                 </div>
             </section>
+
+            <section id="options" class="view">
+              <div class="card" style="background: var(--accent); color: white; margin-bottom: 20px;">
+    <label style="font-weight: 800; font-size: 0.8rem; display: block; margin-bottom: 5px;">MON OBJECTIF DE MARGE NETTE (€)</label>
+    <input type="number" id="target-profit" value="2000" onchange="runCalculations()" style="background: white; color: black; border: none; font-size: 1.2rem; font-weight: 800;">
+    <p style="font-size: 0.7rem; opacity: 0.9; margin-top: 5px;">L'IA passera en rouge si la marge tombe en dessous de ce montant.</p>
+</div>
+                <h1>Réglages <span>IA & Prix</span></h1>
+                <div class="card">
+                    <h3><i data-lucide="dollar-sign"></i> Configuration des coûts de réparation par défaut</h3>
+                    <div id="price-settings-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px;"></div>
+                    <button class="btn-orange" onclick="saveCustomPrices()">💾 ENREGISTRER MA GRILLE TARIFAIRE</button>
+                </div>
+            </section>
+
         </main>
 
         <footer class="ia-status-bar">
             <div class="stat-group">
-                <small>BÉNÉFICE</small>
-                <div class="profit-value">+ <span id="marge-val">0</span> €</div>
+                <small>BÉNÉFICE ESTIMÉ</small>
+                <div style="color: var(--success); font-weight: 800; font-size: 1.4rem;">+ <span id="marge-val">0</span> €</div>
             </div>
+            
             <div class="ia-central-brain">
-                <div class="brain-pulse"></div>
-                <div class="ia-text-wrap">
-                    <div id="ia-verdict">ANALYSE...</div>
-                    <div class="confidence-bar-bg"><div id="confidence-level" class="confidence-bar-fill"></div></div>
-                </div>
+                <div id="ia-verdict">ANALYSE EN COURS...</div>
+                <div class="confidence-bar-bg"><div id="confidence-level" class="confidence-bar-fill"></div></div>
             </div>
-            <div class="stat-group">
-                <small>ACHAT MAX</small>
-                <div class="advice-value"><span id="ia-advice">0</span> €</div>
+
+            <div class="stat-group" style="text-align: right;">
+                <small>ACHAT MAX CONSEILLÉ</small>
+                <div style="color: var(--orange); font-weight: 800; font-size: 1.4rem;"><span id="ia-advice">0</span> €</div>
             </div>
         </footer>
     </div>
 
-    <div id="recap-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="recap-model">Détails</h2>
-                <button onclick="closeRecap()" class="close-btn">&times;</button>
-            </div>
-            <div class="recap-grid">
-                <div><small>VENDEUR</small><p id="recap-vendeur"></p></div>
-                <div><small>MARGE</small><p id="recap-marge" style="color:var(--success-green); font-weight:800;"></p></div>
-            </div>
-            <div class="recap-objection">
-                <strong>💡 RIPOSTE NÉGO :</strong>
-                <p id="recap-riposte"></p>
-            </div>
-            <button class="btn-delete" id="delete-btn" style="margin-top:15px;">SUPPRIMER LE DOSSIER</button>
+    <div id="recap-overlay" class="modal-overlay" onclick="closeRecap()"></div>
+    <div id="recap-modal">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 id="recap-model" style="font-weight: 800; margin: 0; font-size: 1.5rem;">Détails du Dossier</h2>
+            <button onclick="closeRecap()" style="background:none; border:none; font-size: 2rem; cursor:pointer; color: var(--text-muted); line-height: 1;">&times;</button>
         </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div style="padding: 15px; background: var(--bg); border-radius: 12px;">
+                <small style="color: var(--text-muted); font-weight: 700; display: block;">VENDEUR</small>
+                <span id="recap-vendeur" style="font-weight: 700;"></span>
+            </div>
+            <div style="padding: 15px; background: var(--bg); border-radius: 12px;">
+                <small style="color: var(--text-muted); font-weight: 700; display: block;">TÉLÉPHONE</small>
+                <span id="recap-phone" style="font-weight: 700;"></span>
+            </div>
+            <div style="padding: 15px; background: var(--bg); border-radius: 12px;">
+                <small style="color: var(--text-muted); font-weight: 700; display: block;">MARGE NETTE</small>
+                <span id="recap-marge" style="color: var(--success); font-weight: 800;"></span>
+            </div>
+            <div style="padding: 15px; background: var(--bg); border-radius: 12px;">
+                <small style="color: var(--text-muted); font-weight: 700; display: block;">RENTABILITÉ (ROI)</small>
+                <span id="recap-roi-display" style="font-weight: 800;"></span>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background: #fff7ed; border-radius: 12px; border: 1px solid #ffedd5;">
+            <strong style="color: #9a3412; font-size: 0.75rem; text-transform: uppercase; display: block; margin-bottom: 5px;">💡 Argumentaire de Négociation</strong>
+            <p id="recap-riposte" style="margin: 0; font-size: 0.9rem; line-height: 1.5; color: #7c2d12;"></p>
+        </div>
+
+        <button id="delete-btn" class="btn-orange" style="margin-top: 25px; background: var(--danger);">SUPPRIMER DÉFINITIVEMENT</button>
     </div>
 
     <script src="script.js"></script>
